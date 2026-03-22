@@ -29,7 +29,7 @@ export function computeRoundPenalties(
   }
 
   // R3 and above: adversarial payload penalties
-  if (round === "SWEET16" || round === "ELITE8" || round === "FINAL4" || round === "CHAMPIONSHIP") {
+  if (round === "R16" || round === "QF" || round === "SF" || round === "CHAMPIONSHIP") {
     let r3Penalty = 0;
     const jsonParseRecovery = penalties.jsonParseRecovery ?? 1;
     const timeoutHandling = penalties.timeoutHandling ?? 1;
@@ -49,7 +49,7 @@ export function computeRoundPenalties(
   }
 
   // R4 and above: orchestration penalties
-  if (round === "ELITE8" || round === "FINAL4" || round === "CHAMPIONSHIP") {
+  if (round === "QF" || round === "SF" || round === "CHAMPIONSHIP") {
     const sequenceAccuracy = penalties.sequenceAccuracy ?? 1;
     const stepCompletionRate = penalties.stepCompletionRate ?? 1;
 
@@ -61,7 +61,7 @@ export function computeRoundPenalties(
   }
 
   // R5 and above: concurrent load penalties
-  if (round === "FINAL4" || round === "CHAMPIONSHIP") {
+  if (round === "SF" || round === "CHAMPIONSHIP") {
     const concurrencyResilience = penalties.concurrencyResilience ?? 1;
     const stateConsistency = penalties.stateConsistency ?? 1;
 

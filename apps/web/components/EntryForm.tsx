@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { REGIONS } from "@agent-madness/shared";
+import { REGIONS } from "@clankrank/shared";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 

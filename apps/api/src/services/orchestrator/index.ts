@@ -1,4 +1,4 @@
-import type { MatchJob, MatchResult, MatchMetrics, SandboxConfig } from "@agent-madness/shared";
+import type { MatchJob, MatchResult, MatchMetrics, SandboxConfig } from "@clankrank/shared";
 import type { SandboxAdapter } from "./adapters/types.js";
 import type { IMatchQueue } from "./queue.js";
 import { SandboxPool } from "./pool.js";

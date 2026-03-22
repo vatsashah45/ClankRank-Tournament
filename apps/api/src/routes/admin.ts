@@ -22,8 +22,8 @@ import {
   TOURNAMENT_SCHEDULE,
   CHAMPIONSHIP_VENUE,
   getRoundSchedule,
-} from "@agent-madness/shared";
-import type { ScoredEntry, TournamentState, RoundName } from "@agent-madness/shared";
+} from "@clankrank/shared";
+import type { ScoredEntry, TournamentState, RoundName } from "@clankrank/shared";
 
 const sandboxService = new SandboxService();
 const edgeProxyService = new EdgeProxyService();
@@ -330,7 +330,7 @@ export async function adminRoutes(app: FastifyInstance) {
   app.post("/admin/round/:round/run-all", async (request, reply) => {
     const { round } = request.params as { round: string };
 
-    const validRounds = ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"];
+    const validRounds = ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP"];
     if (!validRounds.includes(round)) {
       return reply.status(400).send({ error: `Invalid round: ${round}` });
     }
@@ -364,7 +364,7 @@ export async function adminRoutes(app: FastifyInstance) {
   app.post("/admin/round/:round/generate-next", async (request, reply) => {
     const { round } = request.params as { round: string };
 
-    const validRounds = ["R64", "R32", "SWEET16", "ELITE8", "FINAL4"];
+    const validRounds = ["R64", "R32", "R16", "QF", "SF"];
     if (!validRounds.includes(round)) {
       return reply.status(400).send({ error: `Invalid round for next-round generation: ${round}` });
     }
@@ -412,7 +412,7 @@ export async function adminRoutes(app: FastifyInstance) {
   app.get("/admin/round/:round/status", async (request, reply) => {
     const { round } = request.params as { round: string };
 
-    const validRounds = ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"];
+    const validRounds = ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP"];
     if (!validRounds.includes(round)) {
       return reply.status(400).send({ error: `Invalid round: ${round}` });
     }

@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import type { BracketMatchup, RegionName } from "@agent-madness/shared";
-import { ROUND_SCHEDULE } from "@agent-madness/shared";
-import type { RoundName } from "@agent-madness/shared";
+import type { BracketMatchup, RegionName } from "@clankrank/shared";
+import { ROUND_SCHEDULE } from "@clankrank/shared";
+import type { RoundName } from "@clankrank/shared";
 import { MatchupCard } from "./MatchupCard";
 
 interface EntryMap {
@@ -25,16 +25,16 @@ interface RegionBracketProps {
   direction: "ltr" | "rtl";
 }
 
-const REGION_ROUNDS: RoundName[] = ["R64", "R32", "SWEET16", "ELITE8"];
+const REGION_ROUNDS: RoundName[] = ["R64", "R32", "R16", "QF"];
 
 function getRoundLabel(round: RoundName): string {
   return ROUND_SCHEDULE.find((s) => s.round === round)?.displayName ?? round;
 }
 
 /**
- * Renders one region's bracket rounds (R64 → ELITE8) as columns.
- * ltr: R64 leftmost, ELITE8 rightmost (flows toward center)
- * rtl: R64 rightmost, ELITE8 leftmost (flows toward center)
+ * Renders one region's bracket rounds (R64 → QF) as columns.
+ * ltr: R64 leftmost, QF rightmost (flows toward center)
+ * rtl: R64 rightmost, QF leftmost (flows toward center)
  */
 export function RegionBracket({
   region,
@@ -56,7 +56,7 @@ export function RegionBracket({
       .filter((m) => m.round === round && m.region === region)
       .sort((a, b) => a.id - b.id);
 
-  // Rounds to display: R64 | R32 | SWEET16 | ELITE8
+  // Rounds to display: R64 | R32 | R16 | QF
   const rounds = direction === "ltr" ? REGION_ROUNDS : [...REGION_ROUNDS].reverse();
 
   return (
@@ -132,8 +132,8 @@ function getMatchupGap(round: RoundName): string {
   switch (round) {
     case "R64":    return "4px";
     case "R32":    return "48px";
-    case "SWEET16": return "112px";
-    case "ELITE8": return "240px";
+    case "R16": return "112px";
+    case "QF": return "240px";
     default:       return "4px";
   }
 }

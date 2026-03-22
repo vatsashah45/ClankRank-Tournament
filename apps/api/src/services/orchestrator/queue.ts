@@ -1,4 +1,4 @@
-import type { MatchJob } from "@agent-madness/shared";
+import type { MatchJob } from "@clankrank/shared";
 
 /**
  * IMatchQueue — shared interface for both BullMQ and in-memory MockQueue.

@@ -7,8 +7,8 @@ import {
   REGIONS,
   ROUND_SCHEDULE,
   ROUND_ORDER,
-} from "@agent-madness/shared";
-import type { RoundName } from "@agent-madness/shared";
+} from "@clankrank/shared";
+import type { RoundName } from "@clankrank/shared";
 import { TierBadge } from "@/components/TierBadge";
 
 interface MatchWon {
@@ -79,7 +79,7 @@ export function ChampionSpotlight({
         <div className="relative px-8 py-10 text-center">
           <div className="text-5xl mb-4" aria-hidden="true">🏆</div>
           <div className="text-amber-400 text-sm font-bold uppercase tracking-[0.2em] mb-2">
-            AI Agent Madness Champion
+            ClankRank Tournament Champion
           </div>
           <h1 className="text-3xl font-bold font-mono break-all text-white mb-4">
             {champion.agentId}

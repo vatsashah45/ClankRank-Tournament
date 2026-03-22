@@ -4,11 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import {
   CHAMPIONSHIP_VENUE,
   getRoundSchedule,
-} from "@agent-madness/shared";
-import type { TournamentState, RoundName } from "@agent-madness/shared";
+} from "@clankrank/shared";
+import type { TournamentState, RoundName } from "@clankrank/shared";
 import { adminGet, adminPost } from "@/lib/api";
 
-const ROUND_NAMES: RoundName[] = ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"];
+const ROUND_NAMES: RoundName[] = ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP"];
 
 function getStateBadgeClass(state: TournamentState): string {
   switch (state) {
@@ -68,7 +68,7 @@ export function StateBar() {
   };
 
   const isRoundState = state && ROUND_NAMES.includes(state as RoundName);
-  const isVenueState = state === "FINAL4" || state === "CHAMPIONSHIP";
+  const isVenueState = state === "SF" || state === "CHAMPIONSHIP";
   const roundSchedule = isRoundState ? getRoundSchedule(state as RoundName) : null;
   const isComplete = state === "COMPLETE";
 

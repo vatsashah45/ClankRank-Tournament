@@ -57,80 +57,80 @@ describe("computeRoundPenalties", () => {
   });
 
   // ── Round 3 ──
-  it("SWEET16: each metric at 0 → combined capped at -25", () => {
+  it("R16: each metric at 0 → combined capped at -25", () => {
     const penalties: RoundPenalties = {
       backoffAccuracy: 1.0,
       jsonParseRecovery: 0.0,
       timeoutHandling: 0.0,
       redirectFollowing: 0.0,
     };
-    const result = computeRoundPenalties(penalties, "SWEET16");
+    const result = computeRoundPenalties(penalties, "R16");
     expect(result).toBe(-25); // 10+10+10 = 30, capped at -25
   });
 
-  it("SWEET16: one metric bad → partial penalty", () => {
+  it("R16: one metric bad → partial penalty", () => {
     const penalties: RoundPenalties = {
       backoffAccuracy: 1.0,
       jsonParseRecovery: 0.3,
       timeoutHandling: 1.0,
       redirectFollowing: 1.0,
     };
-    const result = computeRoundPenalties(penalties, "SWEET16");
+    const result = computeRoundPenalties(penalties, "R16");
     expect(result).toBe(-10); // jsonParseRecovery < 0.5 → -10
   });
 
-  it("SWEET16: metrics between 0.5-0.8 → partial penalties", () => {
+  it("R16: metrics between 0.5-0.8 → partial penalties", () => {
     const penalties: RoundPenalties = {
       backoffAccuracy: 1.0,
       jsonParseRecovery: 0.6,
       timeoutHandling: 0.6,
       redirectFollowing: 0.6,
     };
-    const result = computeRoundPenalties(penalties, "SWEET16");
+    const result = computeRoundPenalties(penalties, "R16");
     expect(result).toBe(-15); // 5+5+5 = 15, under max-25
   });
 
-  it("SWEET16: includes R2 penalty + R3 penalty", () => {
+  it("R16: includes R2 penalty + R3 penalty", () => {
     const penalties: RoundPenalties = {
       backoffAccuracy: 0.3,
       jsonParseRecovery: 0.3,
       timeoutHandling: 1.0,
       redirectFollowing: 1.0,
     };
-    const result = computeRoundPenalties(penalties, "SWEET16");
+    const result = computeRoundPenalties(penalties, "R16");
     expect(result).toBe(-25); // -15 (R2) + -10 (R3 json) = -25
   });
 
   // ── Round 4 ──
-  it("ELITE8: sequenceAccuracy < 0.5 → -20", () => {
+  it("QF: sequenceAccuracy < 0.5 → -20", () => {
     const result = computeRoundPenalties(
       { backoffAccuracy: 1.0, jsonParseRecovery: 1.0, timeoutHandling: 1.0, redirectFollowing: 1.0, sequenceAccuracy: 0.3, stepCompletionRate: 1.0 },
-      "ELITE8",
+      "QF",
     );
     expect(result).toBe(-20);
   });
 
-  it("ELITE8: stepCompletionRate < 0.5 → -15", () => {
+  it("QF: stepCompletionRate < 0.5 → -15", () => {
     const result = computeRoundPenalties(
       { backoffAccuracy: 1.0, jsonParseRecovery: 1.0, timeoutHandling: 1.0, redirectFollowing: 1.0, sequenceAccuracy: 1.0, stepCompletionRate: 0.3 },
-      "ELITE8",
+      "QF",
     );
     expect(result).toBe(-15);
   });
 
   // ── Round 5 ──
-  it("FINAL4: concurrencyResilience < 0.5 → -15", () => {
+  it("SF: concurrencyResilience < 0.5 → -15", () => {
     const result = computeRoundPenalties(
       { backoffAccuracy: 1.0, jsonParseRecovery: 1.0, timeoutHandling: 1.0, redirectFollowing: 1.0, sequenceAccuracy: 1.0, stepCompletionRate: 1.0, concurrencyResilience: 0.4, stateConsistency: 1.0 },
-      "FINAL4",
+      "SF",
     );
     expect(result).toBe(-15);
   });
 
-  it("FINAL4: stateConsistency < 0.8 → -8", () => {
+  it("SF: stateConsistency < 0.8 → -8", () => {
     const result = computeRoundPenalties(
       { backoffAccuracy: 1.0, jsonParseRecovery: 1.0, timeoutHandling: 1.0, redirectFollowing: 1.0, sequenceAccuracy: 1.0, stepCompletionRate: 1.0, concurrencyResilience: 1.0, stateConsistency: 0.7 },
-      "FINAL4",
+      "SF",
     );
     expect(result).toBe(-8);
   });
@@ -164,12 +164,12 @@ describe("computeMatchScore", () => {
     expect(withPenalty.score).toBe(base.score - 15);
   });
 
-  it("SWEET16: penalties reduce score correctly", () => {
-    const noPenalty = computeMatchScore(perfectMetrics, {}, "SWEET16");
+  it("R16: penalties reduce score correctly", () => {
+    const noPenalty = computeMatchScore(perfectMetrics, {}, "R16");
     const withPenalty = computeMatchScore(
       perfectMetrics,
       { jsonParseRecovery: 0.0, timeoutHandling: 0.0, redirectFollowing: 0.0 },
-      "SWEET16",
+      "R16",
     );
     // Combined R3 = -10-10-10 = -30, capped at -25
     expect(withPenalty.score).toBe(noPenalty.score - 25);
@@ -187,7 +187,7 @@ describe("computeMatchScore", () => {
     const result = computeMatchScore(
       badMetrics,
       { backoffAccuracy: 0.0, jsonParseRecovery: 0.0, timeoutHandling: 0.0, redirectFollowing: 0.0 },
-      "SWEET16",
+      "R16",
     );
     expect(result.score).toBeGreaterThanOrEqual(0);
     expect(result.score).toBeLessThanOrEqual(110);

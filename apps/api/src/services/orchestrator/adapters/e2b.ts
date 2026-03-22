@@ -1,5 +1,5 @@
 import type { SandboxAdapter } from "./types.js";
-import type { SandboxConfig, SandboxInstance, SandboxRunResult } from "@agent-madness/shared";
+import type { SandboxConfig, SandboxInstance, SandboxRunResult } from "@clankrank/shared";
 
 /**
  * E2BAdapter — stub for E2B (e2b.dev) sandbox runtime.

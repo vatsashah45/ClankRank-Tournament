@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import type { Chain, RoundName } from "@agent-madness/shared";
+import type { Chain, RoundName } from "@clankrank/shared";
 import { createIPFSService } from "./ipfs.js";
 import type { IPFSService } from "./ipfs.js";
 

@@ -93,7 +93,7 @@ async function insertEntry(agentId: string): Promise<number> {
 async function insertMatchup(
   entryAId: number,
   entryBId: number,
-  round: "R64" | "R32" | "SWEET16" | "ELITE8" | "FINAL4" | "CHAMPIONSHIP" = "R64",
+  round: "R64" | "R32" | "R16" | "QF" | "SF" | "CHAMPIONSHIP" = "R64",
 ): Promise<number> {
   const [m] = await db.insert(schema.bracketState).values({
     round,

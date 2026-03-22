@@ -90,7 +90,7 @@ import cors from "@fastify/cors";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
 import * as schema from "../src/db/schema.js";
-import { scoreResult } from "@agent-madness/shared";
+import { scoreResult } from "@clankrank/shared";
 
 let app: FastifyInstance;
 let db: ReturnType<typeof drizzle>;

@@ -22,10 +22,10 @@ import * as schema from "../src/db/schema.js";
 import { MatchRunner } from "../src/services/match-runner.js";
 import { SandboxOrchestrator } from "../src/services/orchestrator/index.js";
 import { TournamentStateMachine } from "../src/services/state-machine.js";
-import { seedAgents, generateR64Matchups } from "@agent-madness/shared";
-import type { RoundName, TournamentState, ScoredEntry } from "@agent-madness/shared";
+import { seedAgents, generateR64Matchups } from "@clankrank/shared";
+import type { RoundName, TournamentState, ScoredEntry } from "@clankrank/shared";
 
-const ROUND_ORDER: RoundName[] = ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"];
+const ROUND_ORDER: RoundName[] = ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP"];
 const CHAINS = ["monad", "ethereum", "arbitrum", "base"] as const;
 
 let sqlite: InstanceType<typeof Database>;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import type { TournamentState } from "@agent-madness/shared";
+import type { TournamentState } from "@clankrank/shared";
 import { ScheduleTimeline } from "@/components/admin/ScheduleTimeline";
 import { ActionPanel } from "@/components/admin/ActionPanel";
 import { adminGet } from "@/lib/api";
@@ -33,9 +33,9 @@ interface OverviewResponse {
 const ROUND_DISPLAY: Record<string, string> = {
   R64: "First Round",
   R32: "Second Round",
-  SWEET16: "Top 16",
-  ELITE8: "Top 8",
-  FINAL4: "Semifinals",
+  R16: "Top 16",
+  QF: "Top 8",
+  SF: "Semifinals",
   CHAMPIONSHIP: "Championship",
 };
 
@@ -44,9 +44,9 @@ const NEXT_STEP: Record<string, string> = {
   QUALIFICATION: "Seed agents & generate the bracket, then advance to R64.",
   R64: "Run all First Round matchups → Generate Next Round → Advance to R32.",
   R32: "Run all Second Round matchups → Generate Next Round → Advance to Top 16.",
-  SWEET16: "Run all Top 16 matchups → Generate Next Round → Advance to Top 8.",
-  ELITE8: "Run all Top 8 matchups → Generate Next Round → Advance to Semifinals.",
-  FINAL4: "Run all Semifinal matchups → Generate Next Round → Advance to Championship.",
+  R16: "Run all Top 16 matchups → Generate Next Round → Advance to Top 8.",
+  QF: "Run all Top 8 matchups → Generate Next Round → Advance to Semifinals.",
+  SF: "Run all Semifinal matchups → Generate Next Round → Advance to Championship.",
   CHAMPIONSHIP: "Run the Championship matchup → Advance to Complete.",
   COMPLETE: "Tournament is complete. No further actions needed.",
 };
@@ -98,7 +98,7 @@ export default function AdminDashboard() {
     fetchOverview();
   }, [fetchOverview]);
 
-  const isRoundState = data?.state && ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"].includes(data.state);
+  const isRoundState = data?.state && ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP"].includes(data.state);
 
   return (
     <div className="space-y-6">

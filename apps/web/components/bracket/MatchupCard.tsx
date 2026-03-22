@@ -1,6 +1,6 @@
 "use client";
 
-import type { BracketMatchup } from "@agent-madness/shared";
+import type { BracketMatchup } from "@clankrank/shared";
 import { TierBadge } from "@/components/TierBadge";
 import { LiveIndicator } from "./LiveIndicator";
 

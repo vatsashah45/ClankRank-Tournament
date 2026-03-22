@@ -1,6 +1,5 @@
 // ──────────────────────────────────────────────
-// Core Types — AI Agent Madness
-// Matches FROZEN spec exactly
+// Core Types — ClankRank Tournament
 // ──────────────────────────────────────────────
 
 export type Chain = "monad" | "ethereum" | "arbitrum" | "base";
@@ -10,13 +9,13 @@ export type TournamentState =
   | "QUALIFICATION"
   | "R64"
   | "R32"
-  | "SWEET16"
-  | "ELITE8"
-  | "FINAL4"
+  | "R16"
+  | "QF"
+  | "SF"
   | "CHAMPIONSHIP"
   | "COMPLETE";
 
-export type RoundName = "R64" | "R32" | "SWEET16" | "ELITE8" | "FINAL4" | "CHAMPIONSHIP";
+export type RoundName = "R64" | "R32" | "R16" | "QF" | "SF" | "CHAMPIONSHIP";
 
 export type EntryStatus = "registered" | "qualified" | "eliminated" | "active" | "champion";
 

@@ -1,4 +1,4 @@
-import type { BracketMatchup, TournamentState } from "@agent-madness/shared";
+import type { BracketMatchup, TournamentState } from "@clankrank/shared";
 import { TournamentBracket } from "@/components/bracket/TournamentBracket";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";

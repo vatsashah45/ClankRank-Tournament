@@ -8,7 +8,7 @@ import { E2BAdapter } from "../src/services/orchestrator/adapters/e2b.js";
 import { DaytonaAdapter } from "../src/services/orchestrator/adapters/daytona.js";
 import { SandboxOrchestrator } from "../src/services/orchestrator/index.js";
 import { createHarness } from "../src/middlewares/harness.js";
-import type { MatchJob } from "@agent-madness/shared";
+import type { MatchJob } from "@clankrank/shared";
 
 const sampleJob: MatchJob = {
   matchId: 1,
@@ -208,11 +208,11 @@ describe("MetricsCollector", () => {
   });
 
   it("rawJson is valid JSON with expected fields", () => {
-    const collector = new MetricsCollector("agent-y", 1, "SWEET16");
+    const collector = new MetricsCollector("agent-y", 1, "R16");
     const result = collector.buildTimeoutMetrics();
     const parsed = JSON.parse(result.rawJson);
     expect(parsed).toHaveProperty("agentId", "agent-y");
-    expect(parsed).toHaveProperty("round", "SWEET16");
+    expect(parsed).toHaveProperty("round", "R16");
     expect(parsed).toHaveProperty("timedOut", true);
   });
 });

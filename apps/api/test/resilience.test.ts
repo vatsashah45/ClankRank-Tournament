@@ -6,7 +6,7 @@
 
 import { describe, it, expect } from "vitest";
 import { MockQueue, BullMQQueue, createQueue } from "../src/services/orchestrator/queue.js";
-import type { MatchJob } from "@agent-madness/shared";
+import type { MatchJob } from "@clankrank/shared";
 
 const sampleJob: MatchJob = {
   matchId: 10,

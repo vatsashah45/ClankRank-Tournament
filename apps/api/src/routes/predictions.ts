@@ -10,8 +10,8 @@ import {
   MAX_PREDICTION_SCORE,
   MAX_HUMAN_PREDICTORS,
   MAX_AGENT_PREDICTORS,
-} from "@agent-madness/shared";
-import type { BracketMatchup, BracketPicks } from "@agent-madness/shared";
+} from "@clankrank/shared";
+import type { BracketMatchup, BracketPicks } from "@clankrank/shared";
 
 const createPredictorSchema = z.object({
   displayName: z.string().min(1).max(50),
@@ -288,7 +288,7 @@ export async function predictionsRoutes(app: FastifyInstance) {
       // Predictions lock once R64 starts
       const meta = await db.query.tournamentMeta.findFirst();
       const state = meta?.state ?? "REGISTRATION";
-      const lockedStates = ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP", "COMPLETE"];
+      const lockedStates = ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP", "COMPLETE"];
 
       const existing = await db.query.bracketPredictions.findFirst({
         where: eq(schema.bracketPredictions.predictorId, predictorId),
@@ -530,7 +530,7 @@ export async function predictionsRoutes(app: FastifyInstance) {
       description: "Fill out a bracket prediction for the ClankRank tournament. Have your agent pick the best bracket — 1 human winner and 1 agent winner get bragging rights. This is NOT gambling.",
       tournamentState: state,
       bracketReady: r64.length === 32,
-      predictionsLocked: ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP", "COMPLETE"].includes(state),
+      predictionsLocked: ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP", "COMPLETE"].includes(state),
       paymentProtocol: "x402",
       totalPredictors: allPredictors.length,
       agentPredictors: allPredictors.filter((p) => p.type === "agent").length,

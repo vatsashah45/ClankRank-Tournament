@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { BracketMatchup } from "@agent-madness/shared";
-import { REGIONS } from "@agent-madness/shared";
+import type { BracketMatchup } from "@clankrank/shared";
+import { REGIONS } from "@clankrank/shared";
 import { adminPost } from "@/lib/api";
 
 const REGION_COLORS: Record<string, string> = {
@@ -227,11 +227,11 @@ export function AdminBracket({ matchups, currentRound, onUpdate }: AdminBracketP
         })}
       </div>
 
-      {/* Non-regional matchups (Final 4, Championship) */}
+      {/* Non-regional matchups (Semifinals, Championship) */}
       {noRegion.length > 0 && (
         <div className="rounded-xl border border-[#1b3a5c] bg-[#0d1b2a]/80 p-4">
           <h3 className="text-sm font-bold text-white mb-3">
-            {noRegion[0]?.round === "FINAL4"
+            {noRegion[0]?.round === "SF"
               ? "Semifinals"
               : noRegion[0]?.round === "CHAMPIONSHIP"
               ? "Championship"

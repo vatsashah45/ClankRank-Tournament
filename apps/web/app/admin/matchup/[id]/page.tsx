@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
-import type { BracketMatchup } from "@agent-madness/shared";
+import type { BracketMatchup } from "@clankrank/shared";
 import { MatchupInspector } from "@/components/admin/MatchupInspector";
 import { apiGet, getEntries } from "@/lib/api";
 

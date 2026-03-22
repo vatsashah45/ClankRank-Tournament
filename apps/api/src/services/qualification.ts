@@ -1,6 +1,6 @@
 import { ValironSDK } from "@valiron/sdk";
-import { scoreResult } from "@agent-madness/shared";
-import type { RiskMetrics, ScoreResult } from "@agent-madness/shared";
+import { scoreResult } from "@clankrank/shared";
+import type { RiskMetrics, ScoreResult } from "@clankrank/shared";
 import { EdgeProxyService } from "./edge-proxy.js";
 import { config } from "../config.js";
 

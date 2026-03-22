@@ -4,7 +4,7 @@ import { createRound3Middleware } from "./round3-adversarial.js";
 import { randomUUID } from "crypto";
 
 /**
- * Round 4 (Elite 8) — Multi-Endpoint Orchestration
+ * Round 4 (Quarterfinals) — Multi-Endpoint Orchestration
  *
  * CUMULATIVE: R1+R2+R3
  *

@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import type { BracketMatchup } from "@agent-madness/shared";
-import { CHAMPIONSHIP_VENUE, getRoundSchedule } from "@agent-madness/shared";
+import type { BracketMatchup } from "@clankrank/shared";
+import { CHAMPIONSHIP_VENUE, getRoundSchedule } from "@clankrank/shared";
 import { MatchupCard } from "./MatchupCard";
 import { TierBadge } from "@/components/TierBadge";
 
@@ -23,10 +23,10 @@ const GOLD = "#F59E0B";
 export function BracketCenter({ matchups, entryMap }: BracketCenterProps) {
   const router = useRouter();
 
-  const final4Matchups = matchups.filter((m) => m.round === "FINAL4").sort((a, b) => a.id - b.id);
+  const final4Matchups = matchups.filter((m) => m.round === "SF").sort((a, b) => a.id - b.id);
   const championship = matchups.find((m) => m.round === "CHAMPIONSHIP");
 
-  const final4Schedule = getRoundSchedule("FINAL4");
+  const final4Schedule = getRoundSchedule("SF");
   const champSchedule = getRoundSchedule("CHAMPIONSHIP");
 
   const handleAgentClick = (agentId: string) => {

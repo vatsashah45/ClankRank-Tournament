@@ -1,5 +1,5 @@
 import type { SeededAgent, RegionName, RoundName, BracketMatchup } from "./types.js";
-import { NCAA_PAIRINGS, REGION_NAMES, BRACKET_HALVES, ROUND_ORDER } from "./constants.js";
+import { BRACKET_PAIRINGS, REGION_NAMES, BRACKET_HALVES, ROUND_ORDER } from "./constants.js";
 
 /**
  * A bracket matchup before it's stored in the database.
@@ -17,7 +17,7 @@ export interface BracketMatchupInput {
 /**
  * Generate R64 matchups from seeded agents.
  *
- * NCAA-style pairings within each region:
+ * Standard bracket pairings within each region:
  *   1v16, 8v9, 5v12, 4v13, 6v11, 3v14, 7v10, 2v15
  *
  * Pure function. Deterministic.
@@ -32,7 +32,7 @@ export function generateR64Matchups(seededAgents: SeededAgent[]): BracketMatchup
       bySeed.set(agent.seed, agent);
     }
 
-    for (const [seedA, seedB] of NCAA_PAIRINGS) {
+    for (const [seedA, seedB] of BRACKET_PAIRINGS) {
       const agentA = bySeed.get(seedA);
       const agentB = bySeed.get(seedB);
 
@@ -59,15 +59,15 @@ export function generateR64Matchups(seededAgents: SeededAgent[]): BracketMatchup
 /**
  * Generate next-round matchups from a completed round.
  *
- * For regional rounds (R64→R32, R32→SWEET16, SWEET16→ELITE8):
+ * For regional rounds (R64→R32, R32→R16, R16→QF):
  *   Winners within the same region are paired by bracket position.
  *   Lower-bracket-position winner (entryA from lower-id matchup) faces the other.
  *
- * For ELITE8→FINAL4:
+ * For QF→SF:
  *   BRACKET_HALVES: Monad winner vs Ethereum winner, Arbitrum winner vs Base winner.
  *
- * For FINAL4→CHAMPIONSHIP:
- *   The two FINAL4 winners play.
+ * For SF→CHAMPIONSHIP:
+ *   The two SF winners play.
  *
  * Requires ALL matchups in completedRound to have winnerId set.
  * Returns new BracketMatchup[] (id=0 placeholders — caller assigns DB ids).
@@ -88,18 +88,18 @@ export function generateNextRoundMatchups(
   }
   const nextRound = ROUND_ORDER[nextRoundIdx];
 
-  // ── ELITE8 → FINAL4: cross-region pairings from BRACKET_HALVES ──
-  if (completedRound === "ELITE8") {
+  // ── QF → SF: cross-region pairings from BRACKET_HALVES ──
+  if (completedRound === "QF") {
     const newMatchups: BracketMatchup[] = [];
     for (const [regionA, regionB] of BRACKET_HALVES) {
       const matchA = roundMatchups.find((m) => m.region === regionA);
       const matchB = roundMatchups.find((m) => m.region === regionB);
       if (!matchA || !matchB) {
-        throw new Error(`Missing ELITE8 matchup for regions ${regionA} or ${regionB}`);
+        throw new Error(`Missing QF matchup for regions ${regionA} or ${regionB}`);
       }
       newMatchups.push({
         id: 0,
-        round: "FINAL4",
+        round: "SF",
         region: null,
         seedA: 0,
         seedB: 0,
@@ -119,10 +119,10 @@ export function generateNextRoundMatchups(
     return newMatchups;
   }
 
-  // ── FINAL4 → CHAMPIONSHIP ──
-  if (completedRound === "FINAL4") {
+  // ── SF → CHAMPIONSHIP ──
+  if (completedRound === "SF") {
     if (roundMatchups.length !== 2) {
-      throw new Error(`Expected 2 FINAL4 matchups, got ${roundMatchups.length}`);
+      throw new Error(`Expected 2 SF matchups, got ${roundMatchups.length}`);
     }
     return [
       {
@@ -146,7 +146,7 @@ export function generateNextRoundMatchups(
     ];
   }
 
-  // ── Regional rounds: R64→R32, R32→SWEET16, SWEET16→ELITE8 ──
+  // ── Regional rounds: R64→R32, R32→R16, R16→QF ──
   // Within each region, pair winners by bracket position (sorted by id)
   const newMatchups: BracketMatchup[] = [];
 

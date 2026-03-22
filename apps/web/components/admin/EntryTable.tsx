@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import type { TournamentEntry } from "@agent-madness/shared";
+import type { TournamentEntry } from "@clankrank/shared";
 import { TierBadge } from "@/components/TierBadge";
 
 const REGION_COLORS: Record<string, string> = {

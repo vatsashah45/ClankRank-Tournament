@@ -1,7 +1,7 @@
 "use client";
 
-import { ROUND_SCHEDULE, CHAMPIONSHIP_VENUE, TOURNAMENT_SCHEDULE } from "@agent-madness/shared";
-import type { TournamentState } from "@agent-madness/shared";
+import { ROUND_SCHEDULE, CHAMPIONSHIP_VENUE, TOURNAMENT_SCHEDULE } from "@clankrank/shared";
+import type { TournamentState } from "@clankrank/shared";
 
 interface ScheduleTimelineProps {
   currentState?: TournamentState;
@@ -19,7 +19,7 @@ function formatDateTime(value: string | undefined): string {
 }
 
 export function ScheduleTimeline({ currentState }: ScheduleTimelineProps) {
-  const isVenueRound = (round: string) => round === "FINAL4" || round === "CHAMPIONSHIP";
+  const isVenueRound = (round: string) => round === "SF" || round === "CHAMPIONSHIP";
 
   const getNodeStatus = (round: string): "past" | "current" | "future" => {
     if (!currentState) return "future";
@@ -28,9 +28,9 @@ export function ScheduleTimeline({ currentState }: ScheduleTimelineProps) {
       "QUALIFICATION",
       "R64",
       "R32",
-      "SWEET16",
-      "ELITE8",
-      "FINAL4",
+      "R16",
+      "QF",
+      "SF",
       "CHAMPIONSHIP",
       "COMPLETE",
     ];
@@ -54,9 +54,9 @@ export function ScheduleTimeline({ currentState }: ScheduleTimelineProps) {
             {formatDateTime(TOURNAMENT_SCHEDULE.QUALIFICATION_END)}
           </span>
           {" · "}
-          Selection Sunday:{" "}
+          Seeding Day:{" "}
           <span className="text-[#e8edf3]">
-            {formatDateTime(TOURNAMENT_SCHEDULE.SELECTION_SUNDAY)}
+            {formatDateTime(TOURNAMENT_SCHEDULE.SEEDING_DAY)}
           </span>
         </p>
       </div>

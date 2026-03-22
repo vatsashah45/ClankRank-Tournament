@@ -53,17 +53,17 @@ export const REGION_NAMES: RegionName[] = ["monad", "ethereum", "arbitrum", "bas
 // ── Tournament rounds ──
 
 export const ROUND_ORDER: RoundName[] = [
-  "R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP",
+  "R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP",
 ];
 
 export const STATE_ORDER: TournamentState[] = [
-  "REGISTRATION", "QUALIFICATION", "R64", "R32", "SWEET16",
-  "ELITE8", "FINAL4", "CHAMPIONSHIP", "COMPLETE",
+  "REGISTRATION", "QUALIFICATION", "R64", "R32", "R16",
+  "QF", "SF", "CHAMPIONSHIP", "COMPLETE",
 ];
 
-// ── NCAA bracket pairings (within each region of 16) ──
+// ── Bracket pairings (within each region of 16) ──
 
-export const NCAA_PAIRINGS: [number, number][] = [
+export const BRACKET_PAIRINGS: [number, number][] = [
   [1, 16], [8, 9], [5, 12], [4, 13],
   [6, 11], [3, 14], [7, 10], [2, 15],
 ];
@@ -97,20 +97,20 @@ export interface RoundSchedule {
 
 /**
  * No hard-coded dates. Tournament phases are advanced manually by admin.
- * This removes all time-locked actions — the Elite 8 selection, round starts, etc.
+ * This removes all time-locked actions — the quarterfinal selection, round starts, etc.
  * are all triggered on-demand rather than at a specific date/time.
  */
 export const TOURNAMENT_SCHEDULE: Record<string, string> = {
   QUALIFICATION_END: "TBD",
-  SELECTION_SUNDAY: "TBD",
+  SEEDING_DAY: "TBD",
 };
 
 export const ROUND_SCHEDULE: RoundSchedule[] = [
   { round: "R64",          displayName: "Round of 64" },
   { round: "R32",          displayName: "Round of 32" },
-  { round: "SWEET16",      displayName: "Round of 16" },
-  { round: "ELITE8",       displayName: "Quarterfinals" },
-  { round: "FINAL4",       displayName: "Semifinals" },
+  { round: "R16",      displayName: "Round of 16" },
+  { round: "QF",       displayName: "Quarterfinals" },
+  { round: "SF",       displayName: "Semifinals" },
   { round: "CHAMPIONSHIP", displayName: "Grand Final" },
 ];
 

@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ROUND_SCHEDULE } from "@agent-madness/shared";
-import type { BracketMatchup, TournamentState } from "@agent-madness/shared";
+import { ROUND_SCHEDULE } from "@clankrank/shared";
+import type { BracketMatchup, TournamentState } from "@clankrank/shared";
 import { BracketBoard } from "@/components/bracket/BracketBoard";
 import { EmptyBracketBoard } from "@/components/bracket/EmptyBracketBoard";
 import { useBracket } from "@/hooks/useBracket";

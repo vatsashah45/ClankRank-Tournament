@@ -5,7 +5,7 @@ import type {
   SandboxRunResult,
   RoundPenalties,
   RiskMetrics,
-} from "@agent-madness/shared";
+} from "@clankrank/shared";
 
 let instanceCounter = 0;
 

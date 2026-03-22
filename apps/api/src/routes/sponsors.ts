@@ -124,9 +124,9 @@ export async function sponsorRoutes(app: FastifyInstance) {
     const allSponsors = await db.query.sponsorSlots.findMany();
 
     return reply.send({
-      protocol: "agent-madness-sponsor",
+      protocol: "clankrank-sponsor",
       version: "1.0",
-      description: "Sponsor Agent Madness to receive compute matching, priority queuing, and analytics access for your AI agent.",
+      description: "Sponsor ClankRank to receive compute matching, priority queuing, and analytics access for your AI agent.",
       paymentProtocol: "x402",
       x402Enabled: isX402Enabled(),
       tiers: Object.entries(SPONSOR_TIERS).map(([tier, config]) => {

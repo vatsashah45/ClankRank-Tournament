@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
-import type { BracketMatchup, RoundName } from "@agent-madness/shared";
-import { getRoundSchedule, CHAMPIONSHIP_VENUE } from "@agent-madness/shared";
+import type { BracketMatchup, RoundName } from "@clankrank/shared";
+import { getRoundSchedule, CHAMPIONSHIP_VENUE } from "@clankrank/shared";
 import { apiGet, adminGet, adminPost } from "@/lib/api";
 
 interface RoundStatus {
@@ -25,7 +25,7 @@ const REGION_COLORS: Record<string, string> = {
   base: "#0052FF",
 };
 
-const VENUE_ROUNDS: RoundName[] = ["FINAL4", "CHAMPIONSHIP"];
+const VENUE_ROUNDS: RoundName[] = ["SF", "CHAMPIONSHIP"];
 
 export default function RoundDetailPage() {
   const params = useParams();

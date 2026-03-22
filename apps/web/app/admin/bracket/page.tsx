@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import type { BracketMatchup, TournamentState } from "@agent-madness/shared";
+import type { BracketMatchup, TournamentState } from "@clankrank/shared";
 import { AdminBracket } from "@/components/admin/AdminBracket";
 import { apiGet } from "@/lib/api";
 
@@ -11,7 +11,7 @@ interface BracketResponse {
   count: number;
 }
 
-const ROUND_STATES = ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"];
+const ROUND_STATES = ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP"];
 
 export default function AdminBracketPage() {
   const [data, setData] = useState<BracketResponse | null>(null);

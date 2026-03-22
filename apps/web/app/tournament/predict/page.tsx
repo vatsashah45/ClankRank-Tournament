@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { REGIONS } from "@agent-madness/shared";
-import type { Chain } from "@agent-madness/shared";
+import { REGIONS } from "@clankrank/shared";
+import type { Chain } from "@clankrank/shared";
 import { LocusCheckout } from "@withlocus/checkout-react";
 import { useAccount, useWalletClient, useConnect } from "wagmi";
 import { injected, coinbaseWallet } from "wagmi/connectors";

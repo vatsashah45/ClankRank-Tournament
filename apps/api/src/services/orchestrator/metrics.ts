@@ -5,8 +5,8 @@ import type {
   MatchMetrics,
   SandboxRunResult,
   TierName,
-} from "@agent-madness/shared";
-import { computeMatchScore } from "@agent-madness/shared";
+} from "@clankrank/shared";
+import { computeMatchScore } from "@clankrank/shared";
 import { ValironSDK } from "@valiron/sdk";
 import { config } from "../../config.js";
 

@@ -45,7 +45,7 @@ await sql.unsafe(`
 
   CREATE TABLE IF NOT EXISTS bracket_state (
     id SERIAL PRIMARY KEY,
-    round TEXT NOT NULL CHECK(round IN ('R64','R32','SWEET16','ELITE8','FINAL4','CHAMPIONSHIP')),
+    round TEXT NOT NULL CHECK(round IN ('R64','R32','R16','QF','SF','CHAMPIONSHIP')),
     region TEXT CHECK(region IN ('monad','ethereum','arbitrum','base') OR region IS NULL),
     seed_a INTEGER,
     seed_b INTEGER,
@@ -88,7 +88,7 @@ await sql.unsafe(`
   CREATE TABLE IF NOT EXISTS tournament_meta (
     id INTEGER PRIMARY KEY DEFAULT 1,
     state TEXT NOT NULL DEFAULT 'REGISTRATION'
-      CHECK(state IN ('REGISTRATION','QUALIFICATION','R64','R32','SWEET16','ELITE8','FINAL4','CHAMPIONSHIP','COMPLETE')),
+      CHECK(state IN ('REGISTRATION','QUALIFICATION','R64','R32','R16','QF','SF','CHAMPIONSHIP','COMPLETE')),
     current_round TEXT,
     started_at TEXT,
     updated_at TEXT DEFAULT (now()::text)

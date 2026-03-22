@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { REGIONS, NCAA_PAIRINGS, ROUND_SCHEDULE } from "@agent-madness/shared";
-import type { RoundName, RegionName } from "@agent-madness/shared";
+import { REGIONS, BRACKET_PAIRINGS, ROUND_SCHEDULE } from "@clankrank/shared";
+import type { RoundName, RegionName } from "@clankrank/shared";
 
 /**
- * Empty bracket template showing the full NCAA structure with TBD placeholders.
+ * Empty bracket template showing the full bracket structure with TBD placeholders.
  * 64 slots across 4 regions (Monad, Ethereum, Arbitrum, Base), 16 per region.
  * Auto-replaced by BracketBoard once 64 agents register and bracket is seeded.
  */
 
-const REGION_ROUNDS: RoundName[] = ["R64", "R32", "SWEET16", "ELITE8"];
+const REGION_ROUNDS: RoundName[] = ["R64", "R32", "R16", "QF"];
 
 type MobileTab = RegionName | "finals";
 
@@ -30,8 +30,8 @@ function getMatchupGap(round: RoundName): string {
   switch (round) {
     case "R64":     return "4px";
     case "R32":     return "48px";
-    case "SWEET16": return "112px";
-    case "ELITE8":  return "240px";
+    case "R16": return "112px";
+    case "QF":  return "240px";
     default:        return "4px";
   }
 }
@@ -87,13 +87,13 @@ function EmptyRegionBracket({
   const getMatchupsForRound = (round: RoundName) => {
     switch (round) {
       case "R64":
-        // 8 matchups: NCAA pairings (1v16, 8v9, 5v12, 4v13, 6v11, 3v14, 7v10, 2v15)
-        return NCAA_PAIRINGS.map(([a, b]) => ({ seedA: a, seedB: b }));
+        // 8 matchups: bracket pairings (1v16, 8v9, 5v12, 4v13, 6v11, 3v14, 7v10, 2v15)
+        return BRACKET_PAIRINGS.map(([a, b]) => ({ seedA: a, seedB: b }));
       case "R32":
         return Array.from({ length: 4 }, (_, i) => ({ seedA: 0, seedB: 0 }));
-      case "SWEET16":
+      case "R16":
         return Array.from({ length: 2 }, (_, i) => ({ seedA: 0, seedB: 0 }));
-      case "ELITE8":
+      case "QF":
         return [{ seedA: 0, seedB: 0 }];
       default:
         return [];

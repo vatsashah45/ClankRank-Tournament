@@ -10,7 +10,7 @@ import {
   seedAgents,
   generateR64Matchups,
   type ScoredEntry,
-} from "@agent-madness/shared";
+} from "@clankrank/shared";
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
@@ -20,7 +20,7 @@ if (!databaseUrl) {
 
 const sql = postgres(databaseUrl, { max: 1 });
 
-type Round = "R64" | "R32" | "SWEET16" | "ELITE8" | "FINAL4" | "CHAMPIONSHIP";
+type Round = "R64" | "R32" | "R16" | "QF" | "SF" | "CHAMPIONSHIP";
 
 interface Row {
   id: number;
@@ -73,12 +73,12 @@ for (const m of r64Matchups) {
 await sql`UPDATE tournament_meta SET state = 'R64', current_round = 'R64', updated_at = ${new Date().toISOString()} WHERE id = 1`;
 console.log("→ State: R64\n");
 
-const ROUNDS: Round[] = ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"];
+const ROUNDS: Round[] = ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP"];
 const NEXT_ROUND: Record<string, Round | undefined> = {
-  R64: "R32", R32: "SWEET16", SWEET16: "ELITE8", ELITE8: "FINAL4", FINAL4: "CHAMPIONSHIP",
+  R64: "R32", R32: "R16", R16: "QF", QF: "SF", SF: "CHAMPIONSHIP",
 };
 const NEXT_STATE: Record<string, string> = {
-  R64: "R32", R32: "SWEET16", SWEET16: "ELITE8", ELITE8: "FINAL4", FINAL4: "CHAMPIONSHIP", CHAMPIONSHIP: "COMPLETE",
+  R64: "R32", R32: "R16", R16: "QF", QF: "SF", SF: "CHAMPIONSHIP", CHAMPIONSHIP: "COMPLETE",
 };
 
 for (const round of ROUNDS) {
@@ -118,7 +118,7 @@ for (const round of ROUNDS) {
   if (nextRound) {
     const completed = await sql`SELECT * FROM bracket_state WHERE round = ${round} ORDER BY id` as Row[];
 
-    if (nextRound === "FINAL4") {
+    if (nextRound === "SF") {
       const regions = ["monad", "ethereum", "arbitrum", "base"];
       const regionWinners: number[] = [];
       for (const r of regions) {
@@ -130,12 +130,12 @@ for (const round of ROUNDS) {
       for (let i = 0; i < regionWinners.length; i += 2) {
         if (regionWinners[i] && regionWinners[i + 1]) {
           await sql`INSERT INTO bracket_state (round, region, seed_a, seed_b, entry_a_id, entry_b_id)
-            VALUES ('FINAL4', ${null}, ${null}, ${null}, ${regionWinners[i]}, ${regionWinners[i + 1]})`;
+            VALUES ('SF', ${null}, ${null}, ${null}, ${regionWinners[i]}, ${regionWinners[i + 1]})`;
         }
       }
-      console.log(`  Generated ${Math.floor(regionWinners.length / 2)} matchups for FINAL4`);
+      console.log(`  Generated ${Math.floor(regionWinners.length / 2)} matchups for SF`);
     } else if (nextRound === "CHAMPIONSHIP") {
-      const final4 = await sql`SELECT * FROM bracket_state WHERE round = 'FINAL4' AND winner_id IS NOT NULL ORDER BY id` as Row[];
+      const final4 = await sql`SELECT * FROM bracket_state WHERE round = 'SF' AND winner_id IS NOT NULL ORDER BY id` as Row[];
 
       if (final4.length >= 2) {
         await sql`INSERT INTO bracket_state (round, region, seed_a, seed_b, entry_a_id, entry_b_id)

@@ -1,16 +1,16 @@
 import { eq, and, isNotNull } from "drizzle-orm";
 import type { DB } from "../db/index.js";
 import { schema } from "../db/index.js";
-import { STATE_ORDER, ROUND_ORDER, ROUND_SCHEDULE } from "@agent-madness/shared";
-import type { TournamentState, RoundName } from "@agent-madness/shared";
+import { STATE_ORDER, ROUND_ORDER, ROUND_SCHEDULE } from "@clankrank/shared";
+import type { TournamentState, RoundName } from "@clankrank/shared";
 
 // Required matchup counts per round
 const ROUND_MATCHUP_COUNTS: Partial<Record<RoundName, number>> = {
   R64: 32,
   R32: 16,
-  SWEET16: 8,
-  ELITE8: 4,
-  FINAL4: 2,
+  R16: 8,
+  QF: 4,
+  SF: 2,
   CHAMPIONSHIP: 1,
 };
 
@@ -134,10 +134,10 @@ export class TournamentStateMachine {
     // Round transitions: check previous round is complete
     const roundTransitions: Partial<Record<TournamentState, RoundName>> = {
       R32: "R64",
-      SWEET16: "R32",
-      ELITE8: "SWEET16",
-      FINAL4: "ELITE8",
-      CHAMPIONSHIP: "FINAL4",
+      R16: "R32",
+      QF: "R16",
+      SF: "QF",
+      CHAMPIONSHIP: "SF",
       COMPLETE: "CHAMPIONSHIP",
     };
 

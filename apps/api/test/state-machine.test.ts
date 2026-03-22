@@ -10,7 +10,7 @@ import { drizzle } from "drizzle-orm/better-sqlite3";
 import { eq } from "drizzle-orm";
 import * as schema from "../src/db/schema.js";
 import { TournamentStateMachine } from "../src/services/state-machine.js";
-import { ROUND_SCHEDULE } from "@agent-madness/shared";
+import { ROUND_SCHEDULE } from "@clankrank/shared";
 
 let sqlite: InstanceType<typeof Database>;
 let db: ReturnType<typeof drizzle>;
@@ -238,7 +238,7 @@ describe("TournamentStateMachine.isRoundComplete", () => {
     // Note: isRoundComplete also checks expected count (32 for R64)
     // With only 1 matchup, it won't be considered complete for R64
     // This tests that a single completed matchup for R32 (expected=16) isn't complete
-    // For a fair test, use FINAL4 (expected=2 matchups) but we only have 1 — still false
+    // For a fair test, use SF (expected=2 matchups) but we only have 1 — still false
     // Let's check a round with expected=1 (if any) - there's none; Championship=1
     // Let's insert it as CHAMPIONSHIP to test the complete path:
     sqlite.exec("UPDATE bracket_state SET round = 'CHAMPIONSHIP'");
@@ -254,8 +254,8 @@ describe("TournamentStateMachine.checkAndAdvance", () => {
   });
 
   it("auto-advances when round is fully complete", async () => {
-    // Set state to FINAL4 and insert 2 completed FINAL4 matchups
-    await setState("FINAL4");
+    // Set state to SF and insert 2 completed SF matchups
+    await setState("SF");
 
     const entries = await Promise.all([
       db.insert(schema.tournamentEntries).values({
@@ -277,10 +277,10 @@ describe("TournamentStateMachine.checkAndAdvance", () => {
     const eC = entries[2][0].id;
     const eD = entries[3][0].id;
 
-    // Insert 2 completed FINAL4 matchups
+    // Insert 2 completed SF matchups
     await db.insert(schema.bracketState).values([
       {
-        round: "FINAL4",
+        round: "SF",
         region: null,
         seedA: null,
         seedB: null,
@@ -290,7 +290,7 @@ describe("TournamentStateMachine.checkAndAdvance", () => {
         completedAt: new Date().toISOString(),
       },
       {
-        round: "FINAL4",
+        round: "SF",
         region: null,
         seedA: null,
         seedB: null,
@@ -341,9 +341,9 @@ describe("TournamentStateMachine: ROUND_SCHEDULE awareness", () => {
     expect(result.success).toBe(false);
   });
 
-  it("SYS-BRK-5: FINAL4 advance blocked when ELITE8 incomplete", async () => {
-    await setState("ELITE8");
-    const result = await stateMachine.transition("FINAL4");
+  it("SYS-BRK-5: SF advance blocked when QF incomplete", async () => {
+    await setState("QF");
+    const result = await stateMachine.transition("SF");
     expect(result.success).toBe(false);
   });
 });

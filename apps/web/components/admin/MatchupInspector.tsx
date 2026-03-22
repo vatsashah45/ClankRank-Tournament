@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { BracketMatchup } from "@agent-madness/shared";
-import { IPFS_GATEWAY_URL, BLOCK_EXPLORER_URLS } from "@agent-madness/shared";
+import type { BracketMatchup } from "@clankrank/shared";
+import { IPFS_GATEWAY_URL, BLOCK_EXPLORER_URLS } from "@clankrank/shared";
 import { TierBadge } from "@/components/TierBadge";
 import { adminPost } from "@/lib/api";
 

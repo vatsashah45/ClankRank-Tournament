@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction, RequestHandler } from "express";
-import type { RoundName } from "@agent-madness/shared";
+import type { RoundName } from "@clankrank/shared";
 
 /**
  * MiddlewareContext — passed through middleware chain via res.locals.

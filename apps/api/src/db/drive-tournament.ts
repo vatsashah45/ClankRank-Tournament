@@ -14,9 +14,9 @@ import { eq } from "drizzle-orm";
 import { SandboxOrchestrator } from "../services/orchestrator/index.js";
 import { MatchRunner } from "../services/match-runner.js";
 import { TournamentStateMachine } from "../services/state-machine.js";
-import type { RoundName } from "@agent-madness/shared";
+import type { RoundName } from "@clankrank/shared";
 
-const ROUND_SEQUENCE: RoundName[] = ["R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"];
+const ROUND_SEQUENCE: RoundName[] = ["R32", "R16", "QF", "SF", "CHAMPIONSHIP"];
 
 const orchestrator = new SandboxOrchestrator({ sandboxRuntime: "mock", redisUrl: "mock" });
 const matchRunner = new MatchRunner(db, orchestrator);
@@ -79,10 +79,10 @@ async function main() {
 function getPreviousRound(round: RoundName): RoundName | null {
   const map: Record<string, RoundName> = {
     R32: "R64",
-    SWEET16: "R32",
-    ELITE8: "SWEET16",
-    FINAL4: "ELITE8",
-    CHAMPIONSHIP: "FINAL4",
+    R16: "R32",
+    QF: "R16",
+    SF: "QF",
+    CHAMPIONSHIP: "SF",
   };
   return map[round] ?? null;
 }

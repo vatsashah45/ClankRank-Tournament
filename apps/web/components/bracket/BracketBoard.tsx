@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import type { BracketMatchup, TournamentState } from "@agent-madness/shared";
-import { REGIONS } from "@agent-madness/shared";
+import type { BracketMatchup, TournamentState } from "@clankrank/shared";
+import { REGIONS } from "@clankrank/shared";
 import { RegionBracket } from "./RegionBracket";
 import { BracketCenter } from "./BracketCenter";
 
@@ -82,7 +82,7 @@ export function BracketBoard({ matchups, state }: BracketBoardProps) {
         >
           {/* Left column: Monad (top) + Arbitrum (bottom) */}
           <div className="flex flex-col gap-8">
-            {/* Monad — ltr: R64 at left, ELITE8 at right (toward center) */}
+            {/* Monad — ltr: R64 at left, QF at right (toward center) */}
             <RegionBracket
               region="monad"
               regionColor={monad.color}
@@ -109,7 +109,7 @@ export function BracketBoard({ matchups, state }: BracketBoardProps) {
 
           {/* Right column: Ethereum (top) + Base (bottom) */}
           <div className="flex flex-col gap-8">
-            {/* Ethereum — rtl: ELITE8 at left, R64 at right (toward center) */}
+            {/* Ethereum — rtl: QF at left, R64 at right (toward center) */}
             <RegionBracket
               region="ethereum"
               regionColor={ethereum.color}

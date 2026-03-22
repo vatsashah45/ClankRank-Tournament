@@ -1,7 +1,7 @@
 import express from "express";
 import type { Express } from "express";
 import type { Server } from "http";
-import type { RoundName } from "@agent-madness/shared";
+import type { RoundName } from "@clankrank/shared";
 import { composeMiddlewares } from "./compose.js";
 
 export interface HarnessInstance {

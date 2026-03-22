@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { eq } from "drizzle-orm";
 import { db, schema } from "../db/index.js";
-import { BLOCK_EXPLORER_URLS, IPFS_GATEWAY_URL } from "@agent-madness/shared";
+import { BLOCK_EXPLORER_URLS, IPFS_GATEWAY_URL } from "@clankrank/shared";
 
 export async function agentRoutes(app: FastifyInstance) {
   // GET /agent/:agentId/history — Full tournament history for an agent

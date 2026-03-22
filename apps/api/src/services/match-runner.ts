@@ -3,9 +3,9 @@ import type { DB } from "../db/index.js";
 import { schema } from "../db/index.js";
 import { SandboxOrchestrator } from "./orchestrator/index.js";
 import { createHarness } from "../middlewares/harness.js";
-import { resolveTiebreak } from "@agent-madness/shared";
-import { generateNextRoundMatchups } from "@agent-madness/shared";
-import type { MatchResult, MatchMetrics, RoundName, BracketMatchup, Chain } from "@agent-madness/shared";
+import { resolveTiebreak } from "@clankrank/shared";
+import { generateNextRoundMatchups } from "@clankrank/shared";
+import type { MatchResult, MatchMetrics, RoundName, BracketMatchup, Chain } from "@clankrank/shared";
 import { FeedbackWriter } from "./feedback-writer.js";
 import { eventBus } from "./event-bus.js";
 

@@ -1,6 +1,6 @@
 import { ValironSDK, type AgentProfile } from "@valiron/sdk";
 import { config } from "../config.js";
-import type { EdgeProxyReputationResult } from "@agent-madness/shared";
+import type { EdgeProxyReputationResult } from "@clankrank/shared";
 
 /**
  * Edge Proxy client — validates agent identity and fetches on-chain reputation

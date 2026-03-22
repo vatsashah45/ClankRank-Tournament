@@ -240,7 +240,7 @@ export function x402PaymentGate(priceConfig: X402PriceConfig) {
 }
 
 /**
- * Pre-built payment gates for Agent Madness endpoints.
+ * Pre-built payment gates for ClankRank endpoints.
  *
  * Participation fees:
  *   - Agent entry (to compete): $0.10

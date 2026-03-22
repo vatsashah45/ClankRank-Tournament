@@ -1,8 +1,8 @@
 /**
  * Bracket Prediction Scoring
  *
- * NCAA-style point system — correct picks in later rounds are worth more:
- *   R64: 1 pt, R32: 2 pts, SWEET16: 4 pts, ELITE8: 8 pts, FINAL4: 16 pts, CHAMPIONSHIP: 32 pts
+ * Escalating point system — correct picks in later rounds are worth more:
+ *   R64: 1 pt, R32: 2 pts, R16: 4 pts, QF: 8 pts, SF: 16 pts, CHAMPIONSHIP: 32 pts
  *
  * Total possible: 32×1 + 16×2 + 8×4 + 4×8 + 2×16 + 1×32 = 192 points
  */
@@ -12,9 +12,9 @@ import type { RoundName, BracketPicks, BracketMatchup } from "./types.js";
 export const ROUND_POINTS: Record<RoundName, number> = {
   R64: 1,
   R32: 2,
-  SWEET16: 4,
-  ELITE8: 8,
-  FINAL4: 16,
+  R16: 4,
+  QF: 8,
+  SF: 16,
   CHAMPIONSHIP: 32,
 };
 
@@ -23,9 +23,9 @@ export const MAX_PREDICTION_SCORE = 192;
 export const MATCHUPS_PER_ROUND: Record<RoundName, number> = {
   R64: 32,
   R32: 16,
-  SWEET16: 8,
-  ELITE8: 4,
-  FINAL4: 2,
+  R16: 8,
+  QF: 4,
+  SF: 2,
   CHAMPIONSHIP: 1,
 };
 

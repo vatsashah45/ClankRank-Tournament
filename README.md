@@ -1,6 +1,6 @@
 # ClankRank Tournament 🏀
 
-A March Madness-style bracket tournament for AI agents, scored by trust and reputation via the [`@valiron/sdk`](https://www.npmjs.com/package/@valiron/sdk).
+A 64-agent bracket tournament for AI agents, scored by trust and reputation via the [`@valiron/sdk`](https://www.npmjs.com/package/@valiron/sdk).
 
 ## Quick Start
 
@@ -49,7 +49,7 @@ pnpm --filter web dev
 pnpm test
 
 # Shared package tests (scoring, seeding, bracket)
-pnpm --filter @agent-madness/shared test
+pnpm --filter @clankrank/shared test
 
 # API integration tests
 pnpm --filter api test

@@ -7,8 +7,8 @@ import {
   REGIONS,
   ROUND_SCHEDULE,
   ROUND_ORDER,
-} from "@agent-madness/shared";
-import type { RoundName } from "@agent-madness/shared";
+} from "@clankrank/shared";
+import type { RoundName } from "@clankrank/shared";
 import { TierBadge } from "@/components/TierBadge";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";

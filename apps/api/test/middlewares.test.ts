@@ -166,11 +166,11 @@ describe("SYS-SBX-2: Round 2 (R32) adaptive rate limits", () => {
 
 // ── SYS-SBX-3: Round 3 ──
 
-describe("SYS-SBX-3: Round 3 (SWEET16) adversarial payloads", () => {
+describe("SYS-SBX-3: Round 3 (R16) adversarial payloads", () => {
   let harness: HarnessInstance;
 
   beforeAll(async () => {
-    harness = await createHarness("SWEET16");
+    harness = await createHarness("R16");
   });
 
   afterAll(async () => {
@@ -250,11 +250,11 @@ describe("SYS-SBX-3: Round 3 (SWEET16) adversarial payloads", () => {
 
 // ── SYS-SBX-4: Round 4 ──
 
-describe("SYS-SBX-4: Round 4 (ELITE8) auth sequence enforcement", () => {
+describe("SYS-SBX-4: Round 4 (QF) auth sequence enforcement", () => {
   let harness: HarnessInstance;
 
   beforeAll(async () => {
-    harness = await createHarness("ELITE8");
+    harness = await createHarness("QF");
   });
 
   afterAll(async () => {
@@ -318,11 +318,11 @@ describe("SYS-SBX-4: Round 4 (ELITE8) auth sequence enforcement", () => {
 
 // ── SYS-SBX-5: Round 5 ──
 
-describe("SYS-SBX-5: Round 5 (FINAL4) noise agents", () => {
+describe("SYS-SBX-5: Round 5 (SF) noise agents", () => {
   let harness: HarnessInstance;
 
   beforeAll(async () => {
-    harness = await createHarness("FINAL4");
+    harness = await createHarness("SF");
   });
 
   afterAll(async () => {

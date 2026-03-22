@@ -1,5 +1,5 @@
 {
-  "name": "@agent-madness/web",
+  "name": "@clankrank/web",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@agent-madness/shared": "workspace:*",
+    "@clankrank/shared": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "@withlocus/checkout-react": "^1.2.0",
     "@x402/evm": "^2.7.0",

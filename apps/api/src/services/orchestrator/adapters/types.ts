@@ -1,4 +1,4 @@
-import type { SandboxConfig, SandboxInstance, SandboxRunResult } from "@agent-madness/shared";
+import type { SandboxConfig, SandboxInstance, SandboxRunResult } from "@clankrank/shared";
 
 /**
  * SandboxAdapter — abstraction over sandbox execution environments.

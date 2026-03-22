@@ -1,4 +1,4 @@
-import type { SandboxInstance } from "@agent-madness/shared";
+import type { SandboxInstance } from "@clankrank/shared";
 
 /**
  * SandboxPool — Semaphore-based resource pool for sandbox instances.

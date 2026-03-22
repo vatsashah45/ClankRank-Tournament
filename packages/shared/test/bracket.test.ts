@@ -40,7 +40,7 @@ describe("generateR64Matchups", () => {
     }
   });
 
-  // NCAA-style pairings: 1v16 in each region
+  // Standard bracket pairings: 1v16 in each region
   it("pairs 1-seed vs 16-seed in each region", () => {
     const seeded = makeSeededAgents();
     const matchups = generateR64Matchups(seeded);
@@ -53,7 +53,7 @@ describe("generateR64Matchups", () => {
     }
   });
 
-  // NCAA-style pairings: 8v9
+  // Standard bracket pairings: 8v9
   it("pairs 8-seed vs 9-seed in each region", () => {
     const seeded = makeSeededAgents();
     const matchups = generateR64Matchups(seeded);
@@ -121,11 +121,11 @@ function makeCompletedR64Matchups(): BracketMatchup[] {
 }
 
 function makeCompletedElite8(): BracketMatchup[] {
-  // 4 ELITE8 matchups, one per region, with winners
+  // 4 QF matchups, one per region, with winners
   const regions: RegionName[] = ["monad", "ethereum", "arbitrum", "base"];
   return regions.map((region, i) => ({
     id: i + 1,
-    round: "ELITE8" as RoundName,
+    round: "QF" as RoundName,
     region,
     seedA: 1,
     seedB: 2,
@@ -147,7 +147,7 @@ function makeCompletedFinal4(): BracketMatchup[] {
   return [
     {
       id: 1,
-      round: "FINAL4" as RoundName,
+      round: "SF" as RoundName,
       region: null,
       seedA: 0,
       seedB: 0,
@@ -165,7 +165,7 @@ function makeCompletedFinal4(): BracketMatchup[] {
     },
     {
       id: 2,
-      round: "FINAL4" as RoundName,
+      round: "SF" as RoundName,
       region: null,
       seedA: 0,
       seedB: 0,
@@ -229,11 +229,11 @@ describe("generateNextRoundMatchups", () => {
   });
 
   // SYS-BRK-6: Semifinals pairs Monad vs Ethereum, Arbitrum vs Base
-  it("SYS-BRK-6: ELITE8→FINAL4 pairs Monad vs Ethereum and Arbitrum vs Base", () => {
+  it("SYS-BRK-6: QF→SF pairs Monad vs Ethereum and Arbitrum vs Base", () => {
     const elite8 = makeCompletedElite8();
-    const final4 = generateNextRoundMatchups(elite8, "ELITE8");
+    const final4 = generateNextRoundMatchups(elite8, "QF");
     expect(final4).toHaveLength(2);
-    expect(final4.every((m) => m.round === "FINAL4")).toBe(true);
+    expect(final4.every((m) => m.round === "SF")).toBe(true);
     expect(final4.every((m) => m.region === null)).toBe(true);
 
     // Semifinal 1: monad winner vs ethereum winner
@@ -249,9 +249,9 @@ describe("generateNextRoundMatchups", () => {
     expect([sf2.entryAId, sf2.entryBId].sort()).toEqual([arbitrumWinner, baseWinner].sort());
   });
 
-  it("FINAL4→CHAMPIONSHIP produces exactly 1 matchup", () => {
+  it("SF→CHAMPIONSHIP produces exactly 1 matchup", () => {
     const final4 = makeCompletedFinal4();
-    const championship = generateNextRoundMatchups(final4, "FINAL4");
+    const championship = generateNextRoundMatchups(final4, "SF");
     expect(championship).toHaveLength(1);
     expect(championship[0].round).toBe("CHAMPIONSHIP");
     expect(championship[0].region).toBeNull();

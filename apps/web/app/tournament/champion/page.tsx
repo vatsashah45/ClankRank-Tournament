@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { BracketMatchup, TournamentState } from "@agent-madness/shared";
-import { ROUND_ORDER } from "@agent-madness/shared";
+import type { BracketMatchup, TournamentState } from "@clankrank/shared";
+import { ROUND_ORDER } from "@clankrank/shared";
 import { ChampionSpotlight } from "@/components/ChampionSpotlight";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
@@ -230,7 +230,7 @@ export default function ChampionPage() {
     .filter((m) => m.won)
     .map((m) => ({
       matchId: m.matchId,
-      round: m.round as import("@agent-madness/shared").RoundName,
+      round: m.round as import("@clankrank/shared").RoundName,
       opponentId: m.opponentId,
       opponentSeed: m.opponentSeed,
       championScore: m.agentScore,

@@ -7,7 +7,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/agent_madness
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/clankrank
       - REDIS_URL=redis://redis:6379
       - EDGE_PROXY_URL=https://valiron-edge-proxy.onrender.com
       - SANDBOX_API_URL=https://valiron.onrender.com
@@ -36,7 +36,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=agent_madness
+      - POSTGRES_DB=clankrank
     volumes:
       - pgdata:/var/lib/postgresql/data
 

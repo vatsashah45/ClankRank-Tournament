@@ -3,8 +3,8 @@ import { z } from "zod";
 import { eq, sql } from "drizzle-orm";
 import { db, schema } from "../db/index.js";
 import { EdgeProxyService } from "../services/edge-proxy.js";
-import { isValidWalletAddress, isValidChain, isValidAgentId, AGENTS_PER_REGION, CHAINS } from "@agent-madness/shared";
-import type { TournamentState } from "@agent-madness/shared";
+import { isValidWalletAddress, isValidChain, isValidAgentId, AGENTS_PER_REGION, CHAINS } from "@clankrank/shared";
+import type { TournamentState } from "@clankrank/shared";
 import { X402_GATES } from "../middleware/x402.js";
 
 const edgeProxy = new EdgeProxyService();

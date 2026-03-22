@@ -135,7 +135,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
 
   try {
     await app.listen({ port: config.port, host: "0.0.0.0" });
-    console.log(`\n🏀 AI Agent Madness API running on port ${config.port}`);
+    console.log(`\n🏀 ClankRank Tournament API running on port ${config.port}`);
     console.log(`   Mode: ${config.isMockMode ? "MOCK" : "LIVE"}`);
     console.log(`   Edge Proxy: ${config.edgeProxyUrl}`);
     console.log(`   Sandbox API: ${config.sandboxApiUrl}`);

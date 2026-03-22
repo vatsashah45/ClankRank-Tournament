@@ -38,7 +38,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Header */}
         <div className="px-5 py-4 border-b border-[#1b3a5c]">
           <div className="flex items-center gap-3">
-            <span className="text-lg font-bold text-white">🏀 Agent Madness</span>
+            <span className="text-lg font-bold text-white">🏀 ClankRank</span>
           </div>
           <div className="mt-1.5">
             <span className="inline-flex items-center px-2 py-0.5 rounded bg-red-600 text-white text-xs font-bold uppercase tracking-widest">

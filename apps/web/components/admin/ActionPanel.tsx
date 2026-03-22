@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { TournamentState } from "@agent-madness/shared";
+import type { TournamentState } from "@clankrank/shared";
 import { adminPost } from "@/lib/api";
 
 interface ActionPanelProps {
@@ -93,7 +93,7 @@ export function ActionPanel({ state, currentRound, onActionComplete }: ActionPan
   } else if (state === "QUALIFICATION") {
     actions.push({ label: "Seed & Generate Bracket", onClick: seedAndBracket, variant: "primary" });
     actions.push({ label: "Advance to R64", onClick: advanceState, variant: "secondary" });
-  } else if (currentRound && ["R64", "R32", "SWEET16", "ELITE8", "FINAL4", "CHAMPIONSHIP"].includes(state)) {
+  } else if (currentRound && ["R64", "R32", "R16", "QF", "SF", "CHAMPIONSHIP"].includes(state)) {
     actions.push({ label: `Run All ${currentRound}`, onClick: runAllRound, variant: "primary" });
     if (state !== "CHAMPIONSHIP") {
       actions.push({ label: "Generate Next Round", onClick: generateNextRound, variant: "secondary" });
