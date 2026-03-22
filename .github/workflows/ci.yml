@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+  isolation:
+    name: Isolation Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "SYS-ISO-4: No Solidity files"
+        run: |
+          if find . -name '*.sol' -not -path '*/node_modules/*' | grep -q .; then
+            echo "::error::Solidity files found — tournament must not include smart contracts"
+            find . -name '*.sol' -not -path '*/node_modules/*'
+            exit 1
+          fi
+
+      - name: "SYS-ISO-3: No direct chain RPC calls outside feedback-writer"
+        run: |
+          VIOLATIONS=$(grep -rn 'JsonRpcProvider\|ethers\.provider\|new Web3(' \
+            --include='*.ts' --include='*.js' \
+            --exclude-dir=node_modules \
+            --exclude='feedback-writer.ts' \
+            --exclude='*.test.ts' \
+            --exclude='*.test.js' || true)
+          if [ -n "$VIOLATIONS" ]; then
+            echo "::error::Direct chain RPC usage found outside feedback-writer.ts"
+            echo "$VIOLATIONS"
+            exit 1
+          fi
+
+      - name: "HC-1: No secrets in source"
+        run: |
+          SECRETS=$(grep -rn 'PRIVATE_KEY\s*=\s*["\x27]0x\|sk-[a-zA-Z0-9]\{20,\}\|-----BEGIN.*PRIVATE' \
+            --include='*.ts' --include='*.js' --include='*.json' \
+            --exclude-dir=node_modules \
+            --exclude='*.test.ts' || true)
+          if [ -n "$SECRETS" ]; then
+            echo "::error::Potential secrets found in source code"
+            echo "$SECRETS"
+            exit 1
+          fi

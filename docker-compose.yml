@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/agent_madness
+      - REDIS_URL=redis://redis:6379
+      - EDGE_PROXY_URL=https://valiron-edge-proxy.onrender.com
+      - SANDBOX_API_URL=https://valiron.onrender.com
+      - ADMIN_API_KEY=${ADMIN_API_KEY:-dev-admin-key}
+      - API_PORT=3001
+    depends_on:
+      - redis
+      - db
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://api:3001
+      - ADMIN_API_KEY=${ADMIN_API_KEY:-dev-admin-key}
+    depends_on:
+      - api
+
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=agent_madness
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  pgdata:
+  redis-data:

@@ -1,0 +1,26 @@
+{
+  "name": "clankrank-tournament",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "db:migrate": "pnpm --filter @agent-madness/api db:migrate"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "@x402/evm": "^2.7.0",
+    "@x402/fetch": "^2.7.0",
+    "viem": "^2.47.4"
+  }
+}
